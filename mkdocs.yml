@@ -5,6 +5,7 @@ repo_name: FBumann/fluxopt-yaml
 
 nav:
   - Home: index.md
+  - User Guide: guide.md
   - API Reference: api.md
 
 theme:

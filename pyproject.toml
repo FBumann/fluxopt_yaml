@@ -27,6 +27,8 @@ classifiers = [
 ]
 dependencies = [
     "fluxopt>=0.0.1rc0",
+    "numpy>=1.26",
+    "pandas>=2.1",
     "pyyaml>=6.0",
 ]
 
@@ -45,6 +47,7 @@ include = ["src/fluxopt_yaml/", "LICENSE", "README.md"]
 [dependency-groups]
 dev = [
     "mypy==1.19.1",
+    "pandas-stubs>=2.1",
     "pre-commit==4.5.1",
     "pytest==9.0.2",
     "pytest-cov==7.0.0",
@@ -116,6 +119,8 @@ warn_unused_configs = true
 [[tool.mypy.overrides]]
 module = [
     "fluxopt.*",
+    "pandas",
+    "numpy",
 ]
 ignore_missing_imports = true
 

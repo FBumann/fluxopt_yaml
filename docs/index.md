@@ -15,28 +15,53 @@ pip install fluxopt-yaml
 ## Quick start
 
 ```python
-from fluxopt_yaml import load_yaml
+from fluxopt_yaml import optimize_yaml
 
-data = load_yaml('model.yaml')
+result = optimize_yaml('model.yaml')
+print(result.objective)
 ```
 
 Example YAML file:
 
 ```yaml
+timeseries: data.csv
+
+carriers:
+  - id: gas
+  - id: heat
+
 effects:
-  - name: cost
+  - id: cost
     is_objective: true
 
 ports:
-  - name: grid
+  - id: grid
     imports:
-      - carrier: electricity
-        size: 200
+      - carrier: gas
+        size: 500
         effects_per_flow_hour:
-          cost: 0.04
+          cost: "gas_price * 1.19"
+  - id: demand
+    exports:
+      - carrier: heat
+        size: 100
+        fixed_relative_profile: "demand_profile"
+
+converters:
+  - id: boiler
+    type: boiler
+    thermal_efficiency: 0.9
+    fuel:
+      carrier: gas
+      size: 300
+    thermal:
+      carrier: heat
+      size: 200
 ```
 
 ## Links
 
+- [User Guide](guide.md) — full YAML format reference
+- [API Reference](api.md)
 - [fluxopt documentation](https://fbumann.github.io/fluxopt/)
 - [Source code](https://github.com/FBumann/fluxopt-yaml)
