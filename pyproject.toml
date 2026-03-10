@@ -3,7 +3,7 @@ requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
-name = "fluxopt-yaml"
+name = "fluxopt_yaml"
 dynamic = ["version"]
 description = "Declarative YAML + CSV model definition for fluxopt."
 readme = "README.md"
