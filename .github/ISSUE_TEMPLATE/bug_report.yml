@@ -1,0 +1,44 @@
+name: Bug Report
+description: Report a bug in fluxopt-yaml
+title: "[BUG] "
+labels: ["type: bug"]
+body:
+- type: markdown
+  attributes:
+    value: |
+      **Quick guide**: Describe what's broken, provide code to reproduce if possible.
+      For simple bugs, just fill the first field.
+
+- type: textarea
+  id: problem
+  attributes:
+    label: What's broken?
+    description: Describe the bug - what happened vs. what you expected
+  validations:
+    required: true
+
+- type: textarea
+  id: example
+  attributes:
+    label: Code to reproduce
+    description: |
+      Provide the smallest possible code example that reproduces the bug.
+    value: |
+      from fluxopt_yaml import load_yaml
+
+      result = load_yaml('model.yaml')
+    render: python
+
+- type: textarea
+  id: error-output
+  attributes:
+    label: Error message
+    description: Paste the full traceback if there is one
+    render: shell
+
+- type: textarea
+  id: context
+  attributes:
+    label: Additional context
+    description: Python/OS version, environment details, or anything else relevant
+    placeholder: "Python 3.12, macOS 14"

@@ -1,0 +1,37 @@
+version: 2
+
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "chore"
+    groups:
+      linting:
+        patterns:
+          - "ruff"
+          - "mypy"
+          - "pre-commit"
+          - "pandas-stubs"
+          - "types-PyYAML"
+      testing:
+        patterns:
+          - "pytest*"
+      documentation:
+        patterns:
+          - "mkdocs*"
+          - "mike"
+          - "pymdown-extensions"
+          - "pygments"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "ci"
