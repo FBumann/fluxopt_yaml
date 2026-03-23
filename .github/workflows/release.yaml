@@ -3,16 +3,6 @@ name: Release
 on:
   push:
     branches: [main]
-  workflow_dispatch:
-    inputs:
-      branch:
-        description: Branch to create the release from
-        required: true
-        default: main
-      prerelease:
-        description: Create a pre-release
-        type: boolean
-        default: true
 
 permissions:
   contents: write
@@ -35,48 +25,17 @@ jobs:
       - uses: googleapis/release-please-action@v4
         id: release
         with:
+          token: ${{ steps.app-token.outputs.token }}
           config-file: .release-please-config.json
           manifest-file: .release-please-manifest.json
-          token: ${{ steps.app-token.outputs.token }}
-          target-branch: ${{ inputs.branch || github.ref_name }}
-          prerelease: ${{ inputs.prerelease }}
 
   publish:
-    name: Build & publish to PyPI
-    needs: [release-please]
+    needs: release-please
     if: needs.release-please.outputs.release_created
-    runs-on: ubuntu-24.04
-    timeout-minutes: 10
-    environment:
-      name: pypi
-      url: https://pypi.org/project/fluxopt_yaml
     permissions:
       id-token: write
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - uses: astral-sh/setup-uv@v7
-        with:
-          enable-cache: true
-
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-
-      - name: Build
-        run: uv build
-
-      - uses: pypa/gh-action-pypi-publish@release/v1
-
-  deploy-docs:
-    name: Deploy docs
-    needs: [release-please, publish]
-    if: needs.release-please.outputs.release_created
-    permissions:
       contents: write
-    uses: ./.github/workflows/docs.yaml
+      attestations: write
+    uses: ./.github/workflows/publish.yaml
     with:
-      deploy: true
-      version: ${{ needs.release-please.outputs.tag_name }}
+      tag: ${{ needs.release-please.outputs.tag_name }}
