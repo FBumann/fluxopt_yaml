@@ -55,14 +55,14 @@ dev = [
     "types-PyYAML>=6.0",
 ]
 docs = [
-    "mike==2.1.4",
+    "mike==2.2.0",
     "mkdocs==1.6.1",
-    "mkdocs-include-markdown-plugin==7.2.1",
-    "mkdocs-material==9.7.5",
+    "mkdocs-include-markdown-plugin==7.2.2",
+    "mkdocs-material==9.7.6",
     "mkdocs-minify-plugin==0.8.0",
     "mkdocstrings-python==2.0.3",
-    "pygments==2.19.2",
-    "pymdown-extensions==10.21",
+    "pygments==2.20.0",
+    "pymdown-extensions==10.21.2",
 ]
 
 [tool.ruff]
